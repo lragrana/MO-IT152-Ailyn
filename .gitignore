@@ -1,1 +1,5 @@
 myvenv
+/cert.crt
+/cert.key
+/cert.pem
+/key.pem
