@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import make_password
 from .models import User
 
 # Get all users
@@ -18,7 +19,8 @@ def create_user(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            user = User.objects.create(username=data['username'], email=data['email'])
+            hashed_password = make_password(data['password'])
+            user = User.objects.create(username=data['username'], email=data['email'], password=hashed_password)
             return JsonResponse({'id': user.id, 'message': 'User created successfully'}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
