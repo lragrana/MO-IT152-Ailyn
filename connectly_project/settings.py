@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     'rest_framework_simplejwt',
-    'django_ratelimit',
     'posts'
 ]
 
