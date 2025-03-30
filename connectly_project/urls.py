@@ -16,9 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
-     path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),  # DRF login/logout
-    path('posts/', include('posts.urls'))
+    path('posts/', include('posts.urls')),
+    path('api-auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api-auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
