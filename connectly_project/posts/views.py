@@ -9,6 +9,13 @@ from .serializers import UserSerializer, PostSerializer, CommentSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authentication import get_authorization_header
 
+# from dj_rest_auth.registration.views import SocialLoginView
+# from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+
+
+# class GoogleLogin(SocialLoginView):
+#     adapter_class = GoogleOAuth2Adapter
+
 class LoginView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
@@ -22,12 +29,7 @@ class LoginView(APIView):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class UserListCreate(APIView):
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [IsAuthenticated()]
-        elif self.request.method == "POST":
-            return [AllowAny()]
-        return super().get_permissions()
+    permission_classes = [AllowAny]
 
     def get(self, request):
         users = User.objects.all()
@@ -52,7 +54,7 @@ class PostListCreate(APIView):
     def post(self, request):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

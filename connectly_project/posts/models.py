@@ -30,6 +30,7 @@ class User(AbstractUser):
 
 # Models
 class Post(models.Model):
+    title = models.CharField(max_length=255, default="")
     content = models.TextField()
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

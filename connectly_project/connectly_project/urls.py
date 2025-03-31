@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('posts/', include('posts.urls')),
+    # path('auth/google/', include('allauth.urls')),
+    # path('auth/google/login/', include('dj_rest_auth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
