@@ -1,5 +1,4 @@
-myvenv
-/cert.crt
-/cert.key
-/cert.pem
-/key.pem
+myvenv/
+connectly_project/db.sqlite3
+connectly_project/key.pem
+connectly_project/cert.pem
